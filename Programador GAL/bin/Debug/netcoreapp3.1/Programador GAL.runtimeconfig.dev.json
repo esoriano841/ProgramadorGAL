@@ -1,0 +1,9 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\dxloz\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\dxloz\\.nuget\\packages",
+      "D:\\dxloz\\Program Files\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+    ]
+  }
+}

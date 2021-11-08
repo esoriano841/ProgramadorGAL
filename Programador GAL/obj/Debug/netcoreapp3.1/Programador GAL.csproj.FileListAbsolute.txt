@@ -1,0 +1,16 @@
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\bin\Debug\netcoreapp3.1\Programador GAL.exe
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\bin\Debug\netcoreapp3.1\Programador GAL.deps.json
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\bin\Debug\netcoreapp3.1\Programador GAL.runtimeconfig.json
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\bin\Debug\netcoreapp3.1\Programador GAL.runtimeconfig.dev.json
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\bin\Debug\netcoreapp3.1\Programador GAL.dll
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\bin\Debug\netcoreapp3.1\Programador GAL.pdb
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.csproj.AssemblyReference.cache
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador_GAL.Form1.resources
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.csproj.GenerateResource.cache
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.AssemblyInfoInputs.cache
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.AssemblyInfo.cs
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.csproj.CoreCompileInputs.cache
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.dll
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.pdb
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\Programador GAL\obj\Debug\netcoreapp3.1\Programador GAL.genruntimeconfig.cache
