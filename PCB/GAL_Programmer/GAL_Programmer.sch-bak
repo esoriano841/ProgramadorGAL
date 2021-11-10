@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:Arduino_As_Uno-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -298,4 +297,15 @@ Wire Notes Line
 	11200 1000 10700 1000
 Wire Notes Line
 	10700 1000 10700 500 
+$Comp
+L Logic_Programmable:GAL16V8 U?
+U 1 1 6189C322
+P 5050 3100
+F 0 "U?" H 5050 3981 50  0000 C CNN
+F 1 "GAL16V8" H 5050 3890 50  0000 C CNN
+F 2 "" H 5050 3100 50  0001 C CNN
+F 3 "" H 5050 3100 50  0001 C CNN
+	1    5050 3100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
