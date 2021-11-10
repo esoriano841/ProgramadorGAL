@@ -214,26 +214,98 @@ namespace ProgramadorGALv2
 
         private void btnVPP_Click(object sender, EventArgs e)
         {
-            try
-            {
+            
+
+            //try
+            //{
                 //string GAL = cBoxGAL.Text;
                 string COM = cBoxCOM.Text;
-                
+
+                if(true)
+                {
+                    progressBar1.Value = 50;
+                }
+               
+
                 if (COM == "")
                 {
                     txtTerm.Text = "Seleccionar Puerto COM";
+
                 }
                 else
                 {
                     string command = "/c afterburner_w64 s -d " + COM + " -v";
                     txtTerm.Text = command;
-                    System.Diagnostics.Process.Start("CMD.exe", command);
+                    
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
+                    procStartInfo.RedirectStandardOutput = true;
+                    procStartInfo.RedirectStandardInput = true;
+                    procStartInfo.UseShellExecute = false;
+                    // Do not create the black window.
+                    procStartInfo.CreateNoWindow = true;
+                    procStartInfo.FileName = "cmd";
+                    procStartInfo.Arguments = command;
+                    // This means that it will be redirected to the Process.StandardOutput StreamReader.
+                    
+                    process.StartInfo = procStartInfo;
+                    progressBar1.Value = 30;
+                    
+                    process.Start();
+                    string result = process.StandardOutput.ReadToEnd();
+                    result = getBetween(result, "\r\n\r\nresult=", "\r\n");
+                    if (result == "0")
+                    {
+                        txtTerm.Text = "Test VPP: OK";
+                        btnVPP.BackColor = Color.YellowGreen;
+                    }
+                    else
+                    {
+                        btnVPP.BackColor = Color.Red;
+                        txtTerm.Text = "Revisar Programador y conexion USB";
+                    }
+                    
+
+                    /*
+                    System.Diagnostics.ProcessStartInfo procStartInfo =
+                    new System.Diagnostics.ProcessStartInfo("cmd", command);*/
+                    //System.Diagnostics.Process.Start("CMD.exe", command);
+
+
+                    // The following commands are needed to redirect the standard output.
+                    // This means that it will be redirected to the Process.StandardOutput StreamReader.
+                    //procStartInfo.RedirectStandardOutput = true;
+                    //procStartInfo.UseShellExecute = false;
+                    // Do not create the black window.
+                    //procStartInfo.CreateNoWindow = true;
+                    // Now we create a process, assign its ProcessStartInfo and start it
+                    progressBar1.Value = 50;
+
+                    // Get the output into a string
+                    //process.StandardOutput.ReadToEnd();
+                   
+                    
+                    progressBar1.Value = 100;
                 }
-            }
-            catch (Exception error)
+            //}
+            /*catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }*/
+        }
+        public static string getBetween(string strSource, string strStart, string strEnd)
+        {
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                int Start, End;
+                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+                End = strSource.IndexOf(strEnd, Start);
+                return strSource.Substring(Start, End - Start);
             }
+
+            return "";
         }
     }
 }
+
+

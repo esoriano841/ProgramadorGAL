@@ -43,6 +43,7 @@ namespace ProgramadorGALv2
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.txtTerm = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnVPP = new System.Windows.Forms.Button();
             this.btnReadDev = new System.Windows.Forms.Button();
             this.cBoxGAL = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@ namespace ProgramadorGALv2
             this.btnVerify = new System.Windows.Forms.Button();
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
-            this.btnVPP = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -154,10 +154,10 @@ namespace ProgramadorGALv2
             // 
             // txtTerm
             // 
-            this.txtTerm.Location = new System.Drawing.Point(12, 381);
+            this.txtTerm.Location = new System.Drawing.Point(477, 153);
             this.txtTerm.Multiline = true;
             this.txtTerm.Name = "txtTerm";
-            this.txtTerm.Size = new System.Drawing.Size(776, 57);
+            this.txtTerm.Size = new System.Drawing.Size(311, 285);
             this.txtTerm.TabIndex = 2;
             // 
             // groupBox3
@@ -168,11 +168,21 @@ namespace ProgramadorGALv2
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(22, 183);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(338, 162);
+            this.groupBox3.Size = new System.Drawing.Size(303, 162);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Dispositivo";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // btnVPP
+            // 
+            this.btnVPP.Location = new System.Drawing.Point(159, 74);
+            this.btnVPP.Name = "btnVPP";
+            this.btnVPP.Size = new System.Drawing.Size(93, 23);
+            this.btnVPP.TabIndex = 8;
+            this.btnVPP.Text = "Test VPP";
+            this.btnVPP.UseVisualStyleBackColor = true;
+            this.btnVPP.Click += new System.EventHandler(this.btnVPP_Click);
             // 
             // btnReadDev
             // 
@@ -214,9 +224,9 @@ namespace ProgramadorGALv2
             this.groupBox4.Controls.Add(this.btnVerify);
             this.groupBox4.Controls.Add(this.btnWrite);
             this.groupBox4.Controls.Add(this.btnRead);
-            this.groupBox4.Location = new System.Drawing.Point(366, 183);
+            this.groupBox4.Location = new System.Drawing.Point(318, 183);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(300, 162);
+            this.groupBox4.Size = new System.Drawing.Size(138, 162);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Progamación";
@@ -260,16 +270,6 @@ namespace ProgramadorGALv2
             this.btnRead.Text = "Read";
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnReadInfo_Click_1);
-            // 
-            // btnVPP
-            // 
-            this.btnVPP.Location = new System.Drawing.Point(159, 74);
-            this.btnVPP.Name = "btnVPP";
-            this.btnVPP.Size = new System.Drawing.Size(75, 23);
-            this.btnVPP.TabIndex = 8;
-            this.btnVPP.Text = "Test VPP";
-            this.btnVPP.UseVisualStyleBackColor = true;
-            this.btnVPP.Click += new System.EventHandler(this.btnVPP_Click);
             // 
             // Form1
             // 
