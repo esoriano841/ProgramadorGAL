@@ -43,14 +43,15 @@ namespace ProgramadorGALv2
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.txtTerm = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.btnReadDev = new System.Windows.Forms.Button();
             this.cBoxGAL = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnErase = new System.Windows.Forms.Button();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
-            this.btnReadDev = new System.Windows.Forms.Button();
-            this.btnVerify = new System.Windows.Forms.Button();
-            this.btnErase = new System.Windows.Forms.Button();
+            this.btnVPP = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -161,6 +162,7 @@ namespace ProgramadorGALv2
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnVPP);
             this.groupBox3.Controls.Add(this.btnReadDev);
             this.groupBox3.Controls.Add(this.cBoxGAL);
             this.groupBox3.Controls.Add(this.label2);
@@ -172,14 +174,15 @@ namespace ProgramadorGALv2
             this.groupBox3.Text = "Dispositivo";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
-            // label2
+            // btnReadDev
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Device";
+            this.btnReadDev.Location = new System.Drawing.Point(18, 74);
+            this.btnReadDev.Name = "btnReadDev";
+            this.btnReadDev.Size = new System.Drawing.Size(107, 23);
+            this.btnReadDev.TabIndex = 7;
+            this.btnReadDev.Text = "Read Device";
+            this.btnReadDev.UseVisualStyleBackColor = true;
+            this.btnReadDev.Click += new System.EventHandler(this.btnReadDev_Click);
             // 
             // cBoxGAL
             // 
@@ -196,6 +199,15 @@ namespace ProgramadorGALv2
             this.cBoxGAL.Size = new System.Drawing.Size(121, 24);
             this.cBoxGAL.TabIndex = 3;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 17);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Device";
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnErase);
@@ -208,6 +220,26 @@ namespace ProgramadorGALv2
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Progamación";
+            // 
+            // btnErase
+            // 
+            this.btnErase.Location = new System.Drawing.Point(6, 124);
+            this.btnErase.Name = "btnErase";
+            this.btnErase.Size = new System.Drawing.Size(75, 23);
+            this.btnErase.TabIndex = 9;
+            this.btnErase.Text = "Erase";
+            this.btnErase.UseVisualStyleBackColor = true;
+            this.btnErase.Click += new System.EventHandler(this.btnErase_Click);
+            // 
+            // btnVerify
+            // 
+            this.btnVerify.Location = new System.Drawing.Point(6, 92);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(75, 26);
+            this.btnVerify.TabIndex = 8;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
             // 
             // btnWrite
             // 
@@ -229,35 +261,15 @@ namespace ProgramadorGALv2
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnReadInfo_Click_1);
             // 
-            // btnReadDev
+            // btnVPP
             // 
-            this.btnReadDev.Location = new System.Drawing.Point(18, 74);
-            this.btnReadDev.Name = "btnReadDev";
-            this.btnReadDev.Size = new System.Drawing.Size(107, 23);
-            this.btnReadDev.TabIndex = 7;
-            this.btnReadDev.Text = "Read Device";
-            this.btnReadDev.UseVisualStyleBackColor = true;
-            this.btnReadDev.Click += new System.EventHandler(this.btnReadDev_Click);
-            // 
-            // btnVerify
-            // 
-            this.btnVerify.Location = new System.Drawing.Point(6, 92);
-            this.btnVerify.Name = "btnVerify";
-            this.btnVerify.Size = new System.Drawing.Size(75, 26);
-            this.btnVerify.TabIndex = 8;
-            this.btnVerify.Text = "Verify";
-            this.btnVerify.UseVisualStyleBackColor = true;
-            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
-            // 
-            // btnErase
-            // 
-            this.btnErase.Location = new System.Drawing.Point(6, 124);
-            this.btnErase.Name = "btnErase";
-            this.btnErase.Size = new System.Drawing.Size(75, 23);
-            this.btnErase.TabIndex = 9;
-            this.btnErase.Text = "Erase";
-            this.btnErase.UseVisualStyleBackColor = true;
-            this.btnErase.Click += new System.EventHandler(this.btnErase_Click);
+            this.btnVPP.Location = new System.Drawing.Point(159, 74);
+            this.btnVPP.Name = "btnVPP";
+            this.btnVPP.Size = new System.Drawing.Size(75, 23);
+            this.btnVPP.TabIndex = 8;
+            this.btnVPP.Text = "Test VPP";
+            this.btnVPP.UseVisualStyleBackColor = true;
+            this.btnVPP.Click += new System.EventHandler(this.btnVPP_Click);
             // 
             // Form1
             // 
@@ -307,6 +319,7 @@ namespace ProgramadorGALv2
         private System.Windows.Forms.Button btnReadDev;
         private System.Windows.Forms.Button btnErase;
         private System.Windows.Forms.Button btnVerify;
+        private System.Windows.Forms.Button btnVPP;
     }
 }
 

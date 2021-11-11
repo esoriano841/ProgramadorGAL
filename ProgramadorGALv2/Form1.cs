@@ -211,5 +211,29 @@ namespace ProgramadorGALv2
                 MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnVPP_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //string GAL = cBoxGAL.Text;
+                string COM = cBoxCOM.Text;
+                
+                if (COM == "")
+                {
+                    txtTerm.Text = "Seleccionar Puerto COM";
+                }
+                else
+                {
+                    string command = "/c afterburner_w64 s -d " + COM + " -v";
+                    txtTerm.Text = command;
+                    System.Diagnostics.Process.Start("CMD.exe", command);
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
