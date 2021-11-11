@@ -30,6 +30,7 @@ namespace ProgramadorGALv2
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnDesc = new System.Windows.Forms.Button();
@@ -52,6 +53,8 @@ namespace ProgramadorGALv2
             this.btnVerify = new System.Windows.Forms.Button();
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
+            this.btnReload = new System.Windows.Forms.Button();
+            this.imgLbtn = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -60,6 +63,7 @@ namespace ProgramadorGALv2
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnReload);
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.btnDesc);
             this.groupBox1.Controls.Add(this.btnCone);
@@ -67,7 +71,7 @@ namespace ProgramadorGALv2
             this.groupBox1.Controls.Add(this.cBoxCOM);
             this.groupBox1.Location = new System.Drawing.Point(22, 37);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(276, 140);
+            this.groupBox1.Size = new System.Drawing.Size(303, 140);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COMUNICACIÓN";
@@ -87,6 +91,7 @@ namespace ProgramadorGALv2
             this.btnDesc.TabIndex = 3;
             this.btnDesc.Text = "Desconcectar";
             this.btnDesc.UseVisualStyleBackColor = true;
+            this.btnDesc.Click += new System.EventHandler(this.btnDesc_Click);
             // 
             // btnCone
             // 
@@ -101,7 +106,7 @@ namespace ProgramadorGALv2
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 37);
+            this.label1.Location = new System.Drawing.Point(40, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 17);
             this.label1.TabIndex = 1;
@@ -124,7 +129,7 @@ namespace ProgramadorGALv2
             // 
             this.groupBox2.Controls.Add(this.txtBoxFile);
             this.groupBox2.Controls.Add(this.btnOpen);
-            this.groupBox2.Location = new System.Drawing.Point(304, 37);
+            this.groupBox2.Location = new System.Drawing.Point(375, 37);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(413, 89);
             this.groupBox2.TabIndex = 1;
@@ -224,7 +229,7 @@ namespace ProgramadorGALv2
             this.groupBox4.Controls.Add(this.btnVerify);
             this.groupBox4.Controls.Add(this.btnWrite);
             this.groupBox4.Controls.Add(this.btnRead);
-            this.groupBox4.Location = new System.Drawing.Point(318, 183);
+            this.groupBox4.Location = new System.Drawing.Point(333, 183);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(138, 162);
             this.groupBox4.TabIndex = 4;
@@ -271,6 +276,24 @@ namespace ProgramadorGALv2
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnReadInfo_Click_1);
             // 
+            // btnReload
+            // 
+            this.btnReload.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.btnReload.ImageIndex = 0;
+            this.btnReload.ImageList = this.imgLbtn;
+            this.btnReload.Location = new System.Drawing.Point(258, 32);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(29, 27);
+            this.btnReload.TabIndex = 5;
+            this.btnReload.UseVisualStyleBackColor = false;
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // imgLbtn
+            // 
+            this.imgLbtn.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgLbtn.ImageStream")));
+            this.imgLbtn.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgLbtn.Images.SetKeyName(0, "1200px-Refresh_icon.svg.png");
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -282,7 +305,7 @@ namespace ProgramadorGALv2
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Programador 1.0.0";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -320,6 +343,8 @@ namespace ProgramadorGALv2
         private System.Windows.Forms.Button btnErase;
         private System.Windows.Forms.Button btnVerify;
         private System.Windows.Forms.Button btnVPP;
+        private System.Windows.Forms.Button btnReload;
+        private System.Windows.Forms.ImageList imgLbtn;
     }
 }
 

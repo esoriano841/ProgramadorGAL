@@ -39,7 +39,41 @@ namespace ProgramadorGALv2
 
         private void btnCone_Click(object sender, EventArgs e)
         {
-                txtTerm.Text = cBoxCOM.Text;
+            
+            try
+            {
+                btnCone.Enabled = false;
+                btnDesc.Enabled = true;
+                progressBar1.Value = 50;
+                serialPort1.PortName = cBoxCOM.Text;
+                serialPort1.BaudRate = 38400;
+                serialPort1.DataBits = 8;
+                serialPort1.StopBits = StopBits.One;
+                serialPort1.Parity = Parity.None;
+                serialPort1.DtrEnable = true;
+                //serialPort1.ReadTimeout = 2000;
+                serialPort1.Open();
+               
+                string datarec = serialPort1.ReadTo(">");
+                
+                txtTerm.Text = datarec;
+
+                serialPort1.Close();
+                progressBar1.Value = 100;
+
+
+
+
+
+
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
         }
 
         private void btnReadInfo_Click(object sender, EventArgs e)
@@ -304,6 +338,40 @@ namespace ProgramadorGALv2
             }
 
             return "";
+        }
+
+        private void btnDesc_Click(object sender, EventArgs e)
+        {
+            btnCone.Enabled = true;
+            btnDesc.Enabled = false;
+            progressBar1.Value = 0;
+        }
+
+        private void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            int intBuffer;
+            intBuffer = serialPort1.BytesToRead;
+            byte[] byteBuffer = new byte[intBuffer];
+            serialPort1.Read(byteBuffer, 0, intBuffer);
+            this.Invoke(new EventHandler(DoUpDate));
+        }
+
+        private void DoUpDate(object s, EventArgs e)
+        {
+            txtTerm.Text = serialPort1.ReadLine();
+        }
+
+        private void Form1_FromClosing(object sender, EventArgs e)
+        {
+            serialPort1.Close();
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            cBoxCOM.Items.Clear();
+            string[] ports = SerialPort.GetPortNames();
+            cBoxCOM.Items.AddRange(ports);
+
         }
     }
 }
