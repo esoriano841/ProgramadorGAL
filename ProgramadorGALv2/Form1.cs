@@ -136,9 +136,10 @@ namespace ProgramadorGALv2
                 }
                 else
                 {
-                    string command = "/c afterburner_w64 i -t " + GAL + " -d " + COM + " -v";
-                    txtTerm.Text = command;
-                    System.Diagnostics.Process.Start("CMD.exe", command);
+                    if(workReadDevice.IsBusy != true)
+                    {
+                        workReadDevice.RunWorkerAsync();
+                    }
                 }               
             }
             catch(Exception error)
@@ -250,10 +251,11 @@ namespace ProgramadorGALv2
         {
             
 
-            //try
-            //{
+            try
+            {
                 //string GAL = cBoxGAL.Text;
                 string COM = cBoxCOM.Text;
+                progressBar1.Value = 0;
 
                 if(true)
                 {
@@ -268,64 +270,17 @@ namespace ProgramadorGALv2
                 }
                 else
                 {
-                    string command = "/c afterburner_w64 s -d " + COM + " -v";
-                    txtTerm.Text = command;
-                    
-                    System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
-                    procStartInfo.RedirectStandardOutput = true;
-                    procStartInfo.RedirectStandardInput = true;
-                    procStartInfo.UseShellExecute = false;
-                    // Do not create the black window.
-                    procStartInfo.CreateNoWindow = true;
-                    procStartInfo.FileName = "cmd";
-                    procStartInfo.Arguments = command;
-                    // This means that it will be redirected to the Process.StandardOutput StreamReader.
-                    
-                    process.StartInfo = procStartInfo;
-                    progressBar1.Value = 30;
-                    
-                    process.Start();
-                    string result = process.StandardOutput.ReadToEnd();
-                    result = getBetween(result, "\r\n\r\nresult=", "\r\n");
-                    if (result == "0")
+                    if(workVPP.IsBusy != true)
                     {
-                        txtTerm.Text = "Test VPP: OK";
-                        btnVPP.BackColor = Color.YellowGreen;
+                        
+                        workVPP.RunWorkerAsync(argument:COM);
                     }
-                    else
-                    {
-                        btnVPP.BackColor = Color.Red;
-                        txtTerm.Text = "Revisar Programador y conexion USB";
-                    }
-                    
-
-                    /*
-                    System.Diagnostics.ProcessStartInfo procStartInfo =
-                    new System.Diagnostics.ProcessStartInfo("cmd", command);*/
-                    //System.Diagnostics.Process.Start("CMD.exe", command);
-
-
-                    // The following commands are needed to redirect the standard output.
-                    // This means that it will be redirected to the Process.StandardOutput StreamReader.
-                    //procStartInfo.RedirectStandardOutput = true;
-                    //procStartInfo.UseShellExecute = false;
-                    // Do not create the black window.
-                    //procStartInfo.CreateNoWindow = true;
-                    // Now we create a process, assign its ProcessStartInfo and start it
-                    progressBar1.Value = 50;
-
-                    // Get the output into a string
-                    //process.StandardOutput.ReadToEnd();
-                   
-                    
-                    progressBar1.Value = 100;
                 }
-            //}
-            /*catch (Exception error)
+            }
+            catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
         }
         public static string getBetween(string strSource, string strStart, string strEnd)
         {
@@ -344,6 +299,7 @@ namespace ProgramadorGALv2
         {
             btnCone.Enabled = true;
             btnDesc.Enabled = false;
+            btnVPP.BackColor = Color.Transparent;
             progressBar1.Value = 0;
         }
 
@@ -372,6 +328,149 @@ namespace ProgramadorGALv2
             string[] ports = SerialPort.GetPortNames();
             cBoxCOM.Items.AddRange(ports);
 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void workReadDevice_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string GAL = cBoxGAL.Text;
+            txtTerm.Clear();
+            string COM = cBoxCOM.Text;
+            string command = "/c afterburner_w64 i -t " + GAL + " -d " + COM + " -v";
+            txtTerm.Text = command;
+            workReadDevice.ReportProgress(50);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
+            procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.RedirectStandardInput = true;
+            procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            procStartInfo.CreateNoWindow = true;
+            procStartInfo.FileName = "cmd";
+            procStartInfo.Arguments = command;
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+
+            process.StartInfo = procStartInfo;
+            progressBar1.Value = 30;
+
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+            result = getBetween(result, "\r\n\r\nresult=", "\r\n");
+            if (result == "0")
+            {
+                txtTerm.Text = "Test VPP: OK";
+                btnVPP.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                btnVPP.BackColor = Color.Red;
+                txtTerm.Text = "Revisar Programador y conexion USB";
+            }
+
+
+            /*
+            System.Diagnostics.ProcessStartInfo procStartInfo =
+            new System.Diagnostics.ProcessStartInfo("cmd", command);*/
+            //System.Diagnostics.Process.Start("CMD.exe", command);
+
+
+            // The following commands are needed to redirect the standard output.
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+            //procStartInfo.RedirectStandardOutput = true;
+            //procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            //procStartInfo.CreateNoWindow = true;
+            // Now we create a process, assign its ProcessStartInfo and start it
+
+            progressBar1.Value = 100;
+        }
+
+        private void workReadDevice_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void workVPP_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string COM = (string) e.Argument;
+            string command = "/c afterburner_w64 s -d " + COM + " -v";
+            //txtTerm.Text = command;
+            workVPP.ReportProgress(20);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
+            procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.RedirectStandardInput = true;
+            procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            procStartInfo.CreateNoWindow = true;
+            procStartInfo.FileName = "cmd";
+            procStartInfo.Arguments = command;
+            workVPP.ReportProgress(40);
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+
+            process.StartInfo = procStartInfo;
+            //progressBar1.Value = 30;
+
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+            result = getBetween(result, "\r\n\r\nresult=", "\r\n");
+            workVPP.ReportProgress(60);
+            if (result == "0")
+            {
+                txtTerm.Invoke(new Action(() =>
+                {
+                    
+                    txtTerm.Text = "\r\nTEST VPP: OK";
+                }));
+                
+
+                btnVPP.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                btnVPP.BackColor = Color.Red;
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "\r\nRevisar Programador y conexion USB";
+                }));
+                
+            }
+
+
+            /*
+            System.Diagnostics.ProcessStartInfo procStartInfo =
+            new System.Diagnostics.ProcessStartInfo("cmd", command);*/
+            //System.Diagnostics.Process.Start("CMD.exe", command);
+
+
+            // The following commands are needed to redirect the standard output.
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+            //procStartInfo.RedirectStandardOutput = true;
+            //procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            //procStartInfo.CreateNoWindow = true;
+            // Now we create a process, assign its ProcessStartInfo and start it
+            workVPP.ReportProgress(100);
+            //progressBar1.Value = 100;
+        }
+
+        private void workVPP_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void btnClean_Click(object sender, EventArgs e)
+        {
+            txtTerm.Clear();
         }
     }
 }
