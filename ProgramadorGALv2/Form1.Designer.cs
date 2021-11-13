@@ -32,6 +32,8 @@ namespace ProgramadorGALv2
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnReload = new System.Windows.Forms.Button();
+            this.imgLbtn = new System.Windows.Forms.ImageList(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnDesc = new System.Windows.Forms.Button();
             this.btnCone = new System.Windows.Forms.Button();
@@ -49,12 +51,21 @@ namespace ProgramadorGALv2
             this.cBoxGAL = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnErase = new System.Windows.Forms.Button();
             this.btnVerify = new System.Windows.Forms.Button();
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
-            this.btnReload = new System.Windows.Forms.Button();
-            this.imgLbtn = new System.Windows.Forms.ImageList(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.workReadDevice = new System.ComponentModel.BackgroundWorker();
+            this.workVPP = new System.ComponentModel.BackgroundWorker();
+            this.workRead = new System.ComponentModel.BackgroundWorker();
+            this.workWrite = new System.ComponentModel.BackgroundWorker();
+            this.workVerify = new System.ComponentModel.BackgroundWorker();
+            this.workErase = new System.ComponentModel.BackgroundWorker();
+            this.btnClean = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -75,6 +86,24 @@ namespace ProgramadorGALv2
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COMUNICACIÓN";
+            // 
+            // btnReload
+            // 
+            this.btnReload.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.btnReload.ImageIndex = 0;
+            this.btnReload.ImageList = this.imgLbtn;
+            this.btnReload.Location = new System.Drawing.Point(258, 32);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(29, 27);
+            this.btnReload.TabIndex = 5;
+            this.btnReload.UseVisualStyleBackColor = false;
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // imgLbtn
+            // 
+            this.imgLbtn.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgLbtn.ImageStream")));
+            this.imgLbtn.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgLbtn.Images.SetKeyName(0, "1200px-Refresh_icon.svg.png");
             // 
             // progressBar1
             // 
@@ -159,10 +188,10 @@ namespace ProgramadorGALv2
             // 
             // txtTerm
             // 
-            this.txtTerm.Location = new System.Drawing.Point(477, 153);
+            this.txtTerm.Location = new System.Drawing.Point(14, 351);
             this.txtTerm.Multiline = true;
             this.txtTerm.Name = "txtTerm";
-            this.txtTerm.Size = new System.Drawing.Size(311, 285);
+            this.txtTerm.Size = new System.Drawing.Size(839, 192);
             this.txtTerm.TabIndex = 2;
             // 
             // groupBox3
@@ -173,7 +202,7 @@ namespace ProgramadorGALv2
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(22, 183);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(303, 162);
+            this.groupBox3.Size = new System.Drawing.Size(303, 113);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Dispositivo";
@@ -225,16 +254,30 @@ namespace ProgramadorGALv2
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.btnErase);
             this.groupBox4.Controls.Add(this.btnVerify);
             this.groupBox4.Controls.Add(this.btnWrite);
             this.groupBox4.Controls.Add(this.btnRead);
             this.groupBox4.Location = new System.Drawing.Point(333, 183);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(138, 162);
+            this.groupBox4.Size = new System.Drawing.Size(477, 162);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Progamación";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(87, 37);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(164, 17);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Lee el fuse map del GAL";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // btnErase
             // 
@@ -276,29 +319,62 @@ namespace ProgramadorGALv2
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnReadInfo_Click_1);
             // 
-            // btnReload
+            // label4
             // 
-            this.btnReload.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.btnReload.ImageIndex = 0;
-            this.btnReload.ImageList = this.imgLbtn;
-            this.btnReload.Location = new System.Drawing.Point(258, 32);
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(29, 27);
-            this.btnReload.TabIndex = 5;
-            this.btnReload.UseVisualStyleBackColor = false;
-            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(87, 63);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(184, 17);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Escribe un fuse map al GAL";
             // 
-            // imgLbtn
+            // label5
             // 
-            this.imgLbtn.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgLbtn.ImageStream")));
-            this.imgLbtn.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgLbtn.Images.SetKeyName(0, "1200px-Refresh_icon.svg.png");
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(87, 92);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(485, 21);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Verifica el fuse map que tiene el GAL con el JEDEC cargado";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(87, 124);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(175, 17);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Borra el fuse map del GAL";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // workReadDevice
+            // 
+            this.workReadDevice.WorkerReportsProgress = true;
+            this.workReadDevice.DoWork += new System.ComponentModel.DoWorkEventHandler(this.workReadDevice_DoWork);
+            this.workReadDevice.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.workReadDevice_ProgressChanged);
+            // 
+            // workVPP
+            // 
+            this.workVPP.WorkerReportsProgress = true;
+            this.workVPP.DoWork += new System.ComponentModel.DoWorkEventHandler(this.workVPP_DoWork);
+            this.workVPP.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.workVPP_ProgressChanged);
+            // 
+            // btnClean
+            // 
+            this.btnClean.Location = new System.Drawing.Point(12, 322);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(75, 23);
+            this.btnClean.TabIndex = 5;
+            this.btnClean.Text = "Limpiar";
+            this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(865, 555);
+            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.txtTerm);
@@ -314,6 +390,7 @@ namespace ProgramadorGALv2
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,6 +422,17 @@ namespace ProgramadorGALv2
         private System.Windows.Forms.Button btnVPP;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.ImageList imgLbtn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.ComponentModel.BackgroundWorker workReadDevice;
+        private System.ComponentModel.BackgroundWorker workVPP;
+        private System.ComponentModel.BackgroundWorker workRead;
+        private System.ComponentModel.BackgroundWorker workWrite;
+        private System.ComponentModel.BackgroundWorker workVerify;
+        private System.ComponentModel.BackgroundWorker workErase;
+        private System.Windows.Forms.Button btnClean;
     }
 }
 
