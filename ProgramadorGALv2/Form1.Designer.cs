@@ -51,14 +51,14 @@ namespace ProgramadorGALv2
             this.cBoxGAL = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnErase = new System.Windows.Forms.Button();
             this.btnVerify = new System.Windows.Forms.Button();
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.workReadDevice = new System.ComponentModel.BackgroundWorker();
             this.workVPP = new System.ComponentModel.BackgroundWorker();
             this.workRead = new System.ComponentModel.BackgroundWorker();
@@ -89,7 +89,7 @@ namespace ProgramadorGALv2
             // 
             // btnReload
             // 
-            this.btnReload.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.btnReload.BackColor = System.Drawing.Color.Transparent;
             this.btnReload.ImageIndex = 0;
             this.btnReload.ImageList = this.imgLbtn;
             this.btnReload.Location = new System.Drawing.Point(258, 32);
@@ -191,6 +191,7 @@ namespace ProgramadorGALv2
             this.txtTerm.Location = new System.Drawing.Point(14, 351);
             this.txtTerm.Multiline = true;
             this.txtTerm.Name = "txtTerm";
+            this.txtTerm.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtTerm.Size = new System.Drawing.Size(839, 192);
             this.txtTerm.TabIndex = 2;
             // 
@@ -220,12 +221,13 @@ namespace ProgramadorGALv2
             // 
             // btnReadDev
             // 
+            this.btnReadDev.BackColor = System.Drawing.Color.Transparent;
             this.btnReadDev.Location = new System.Drawing.Point(18, 74);
             this.btnReadDev.Name = "btnReadDev";
             this.btnReadDev.Size = new System.Drawing.Size(107, 23);
             this.btnReadDev.TabIndex = 7;
             this.btnReadDev.Text = "Read Device";
-            this.btnReadDev.UseVisualStyleBackColor = true;
+            this.btnReadDev.UseVisualStyleBackColor = false;
             this.btnReadDev.Click += new System.EventHandler(this.btnReadDev_Click);
             // 
             // cBoxGAL
@@ -269,6 +271,34 @@ namespace ProgramadorGALv2
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Progamación";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(87, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(175, 17);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Borra el fuse map del GAL";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(87, 121);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(388, 17);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Verifica el fuse map que tiene el GAL con el JEDEC cargado";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(87, 92);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(184, 17);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Escribe un fuse map al GAL";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -281,7 +311,7 @@ namespace ProgramadorGALv2
             // 
             // btnErase
             // 
-            this.btnErase.Location = new System.Drawing.Point(6, 124);
+            this.btnErase.Location = new System.Drawing.Point(6, 63);
             this.btnErase.Name = "btnErase";
             this.btnErase.Size = new System.Drawing.Size(75, 23);
             this.btnErase.TabIndex = 9;
@@ -291,7 +321,7 @@ namespace ProgramadorGALv2
             // 
             // btnVerify
             // 
-            this.btnVerify.Location = new System.Drawing.Point(6, 92);
+            this.btnVerify.Location = new System.Drawing.Point(6, 121);
             this.btnVerify.Name = "btnVerify";
             this.btnVerify.Size = new System.Drawing.Size(75, 26);
             this.btnVerify.TabIndex = 8;
@@ -301,7 +331,7 @@ namespace ProgramadorGALv2
             // 
             // btnWrite
             // 
-            this.btnWrite.Location = new System.Drawing.Point(6, 63);
+            this.btnWrite.Location = new System.Drawing.Point(6, 92);
             this.btnWrite.Name = "btnWrite";
             this.btnWrite.Size = new System.Drawing.Size(75, 23);
             this.btnWrite.TabIndex = 7;
@@ -319,34 +349,6 @@ namespace ProgramadorGALv2
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnReadInfo_Click_1);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(87, 63);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(184, 17);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Escribe un fuse map al GAL";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(87, 92);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(485, 21);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Verifica el fuse map que tiene el GAL con el JEDEC cargado";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(87, 124);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(175, 17);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Borra el fuse map del GAL";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
             // workReadDevice
             // 
             this.workReadDevice.WorkerReportsProgress = true;
@@ -359,11 +361,35 @@ namespace ProgramadorGALv2
             this.workVPP.DoWork += new System.ComponentModel.DoWorkEventHandler(this.workVPP_DoWork);
             this.workVPP.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.workVPP_ProgressChanged);
             // 
+            // workRead
+            // 
+            this.workRead.WorkerReportsProgress = true;
+            this.workRead.DoWork += new System.ComponentModel.DoWorkEventHandler(this.workRead_DoWork);
+            this.workRead.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.workRead_ProgressChanged);
+            // 
+            // workWrite
+            // 
+            this.workWrite.WorkerReportsProgress = true;
+            this.workWrite.DoWork += new System.ComponentModel.DoWorkEventHandler(this.workWrite_DoWork);
+            this.workWrite.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.workWrite_ProgressChanged);
+            // 
+            // workVerify
+            // 
+            this.workVerify.WorkerReportsProgress = true;
+            this.workVerify.DoWork += new System.ComponentModel.DoWorkEventHandler(this.workVerify_DoWork);
+            this.workVerify.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.workVerify_ProgressChanged);
+            // 
+            // workErase
+            // 
+            this.workErase.WorkerReportsProgress = true;
+            this.workErase.DoWork += new System.ComponentModel.DoWorkEventHandler(this.workErase_DoWork);
+            this.workErase.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.workErase_ProgressChanged);
+            // 
             // btnClean
             // 
-            this.btnClean.Location = new System.Drawing.Point(12, 322);
+            this.btnClean.Location = new System.Drawing.Point(12, 318);
             this.btnClean.Name = "btnClean";
-            this.btnClean.Size = new System.Drawing.Size(75, 23);
+            this.btnClean.Size = new System.Drawing.Size(75, 27);
             this.btnClean.TabIndex = 5;
             this.btnClean.Text = "Limpiar";
             this.btnClean.UseVisualStyleBackColor = true;
@@ -380,6 +406,7 @@ namespace ProgramadorGALv2
             this.Controls.Add(this.txtTerm);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Programador 1.0.0";
             this.Load += new System.EventHandler(this.Form1_Load);

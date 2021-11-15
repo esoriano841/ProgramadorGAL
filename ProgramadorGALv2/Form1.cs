@@ -29,6 +29,7 @@ namespace ProgramadorGALv2
         private void Form1_Load(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
+            btnDesc.Enabled = false;
             cBoxCOM.Items.AddRange(ports);
         }
 
@@ -102,9 +103,11 @@ namespace ProgramadorGALv2
                 }
                 else
                 {
-                    string command = "/c afterburner_w64 r -t " + GAL + " -d " + COM + " -v";
-                    txtTerm.Text = "Read: " + command;
-                    System.Diagnostics.Process.Start("CMD.exe", command);
+                    List<object> argument = new List<object>();
+                    argument.Add(COM);
+                    argument.Add(GAL);
+
+                    workRead.RunWorkerAsync(argument);
                 }
             }
             catch (Exception error)
@@ -124,6 +127,7 @@ namespace ProgramadorGALv2
         {
             try
             {
+                //btnReadDev.Enabled = false;
                 string GAL = cBoxGAL.Text;
                 string COM = cBoxCOM.Text;
                 if(GAL == "")
@@ -138,7 +142,11 @@ namespace ProgramadorGALv2
                 {
                     if(workReadDevice.IsBusy != true)
                     {
-                        workReadDevice.RunWorkerAsync();
+                        List<object> argument = new List<object>();
+                        argument.Add(COM);
+                        argument.Add(GAL);
+
+                        workReadDevice.RunWorkerAsync(argument);
                     }
                 }               
             }
@@ -172,9 +180,12 @@ namespace ProgramadorGALv2
                 }
                 else
                 {
-                    string command = "/c afterburner_w64 w -t " + GAL + " -f " + FILE + " -d " + COM + " -v";
-                    txtTerm.Text = command;
-                    System.Diagnostics.Process.Start("CMD.exe", command);
+                    List<object> argument = new List<object>();
+                    argument.Add(COM);
+                    argument.Add(GAL);
+                    argument.Add(FILE);
+
+                    workWrite.RunWorkerAsync(argument);
                 }
             }
             catch (Exception error)
@@ -204,9 +215,12 @@ namespace ProgramadorGALv2
                 }
                 else
                 {
-                    string command = "/c afterburner_w64 v -t " + GAL + " -f " + FILE + " -d " + COM + " -v";
-                    txtTerm.Text = command;
-                    System.Diagnostics.Process.Start("CMD.exe", command);
+                    List<object> argument = new List<object>();
+                    argument.Add(COM);
+                    argument.Add(GAL);
+                    argument.Add(FILE);
+
+                    workVerify.RunWorkerAsync(argument);
                 }
             }
             catch (Exception error)
@@ -230,15 +244,13 @@ namespace ProgramadorGALv2
                 {
                     txtTerm.Text = "Seleccionar Puerto COM";
                 }
-                else if (FILE == "")
-                {
-                    txtTerm.Text = "Seleccionar Archivo JEDEC";
-                }
                 else
                 {
-                    string command = "/c afterburner_w64 e -t " + GAL + " -d " + COM + " -v";
-                    txtTerm.Text = command;
-                    System.Diagnostics.Process.Start("CMD.exe", command);
+                    List<object> argument = new List<object>();
+                    argument.Add(COM);
+                    argument.Add(GAL);
+
+                    workErase.RunWorkerAsync(argument);
                 }
             }
             catch (Exception error)
@@ -273,7 +285,7 @@ namespace ProgramadorGALv2
                     if(workVPP.IsBusy != true)
                     {
                         
-                        workVPP.RunWorkerAsync(argument:COM);
+                        workVPP.RunWorkerAsync(argument : COM);
                     }
                 }
             }
@@ -300,6 +312,16 @@ namespace ProgramadorGALv2
             btnCone.Enabled = true;
             btnDesc.Enabled = false;
             btnVPP.BackColor = Color.Transparent;
+            btnReadDev.BackColor = Color.Transparent;
+            btnRead.BackColor = Color.Transparent;
+            btnErase.BackColor = Color.Transparent;
+            btnWrite.BackColor = Color.Transparent;
+            btnVerify.BackColor = Color.Transparent;
+
+            txtBoxFile.Clear();
+            txtTerm.Clear();
+            
+
             progressBar1.Value = 0;
         }
 
@@ -342,11 +364,17 @@ namespace ProgramadorGALv2
 
         private void workReadDevice_DoWork(object sender, DoWorkEventArgs e)
         {
-            string GAL = cBoxGAL.Text;
-            txtTerm.Clear();
-            string COM = cBoxCOM.Text;
+            List<object> Device  = e.Argument as List<object>;
+            string COM = (string) Device.ElementAt(0);
+            string GAL = (string) Device.ElementAt(1);
+
+
             string command = "/c afterburner_w64 i -t " + GAL + " -d " + COM + " -v";
-            txtTerm.Text = command;
+            txtTerm.Invoke(new Action(() =>
+            {
+                txtTerm.Text = txtTerm.Text = command;
+            }));
+            
             workReadDevice.ReportProgress(50);
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
@@ -360,38 +388,35 @@ namespace ProgramadorGALv2
             // This means that it will be redirected to the Process.StandardOutput StreamReader.
 
             process.StartInfo = procStartInfo;
-            progressBar1.Value = 30;
-
+            //progressBar1.Value = 30;
+            workReadDevice.ReportProgress(60);
             process.Start();
             string result = process.StandardOutput.ReadToEnd();
-            result = getBetween(result, "\r\n\r\nresult=", "\r\n");
-            if (result == "0")
+
+            string result2 = getBetween(result, "V ", " GAL,");
+            if (result2 != "Unknown")
             {
-                txtTerm.Text = "Test VPP: OK";
-                btnVPP.BackColor = Color.YellowGreen;
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******READ DEVICE INFO: OK*******\r\n" + result + "****************************";
+                }));
+                btnReadDev.BackColor = Color.YellowGreen;
             }
             else
             {
-                btnVPP.BackColor = Color.Red;
-                txtTerm.Text = "Revisar Programador y conexion USB";
+                btnReadDev.BackColor = Color.Red;
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******READ DEVICE INFO: FAIL*******\r\n" + result + "\r\n****************************";
+                }));
+
             }
 
-
-            /*
-            System.Diagnostics.ProcessStartInfo procStartInfo =
-            new System.Diagnostics.ProcessStartInfo("cmd", command);*/
-            //System.Diagnostics.Process.Start("CMD.exe", command);
+            workReadDevice.ReportProgress(100);
+            //btnReadDev.Enabled = true;
 
 
-            // The following commands are needed to redirect the standard output.
-            // This means that it will be redirected to the Process.StandardOutput StreamReader.
-            //procStartInfo.RedirectStandardOutput = true;
-            //procStartInfo.UseShellExecute = false;
-            // Do not create the black window.
-            //procStartInfo.CreateNoWindow = true;
-            // Now we create a process, assign its ProcessStartInfo and start it
 
-            progressBar1.Value = 100;
         }
 
         private void workReadDevice_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -471,6 +496,244 @@ namespace ProgramadorGALv2
         private void btnClean_Click(object sender, EventArgs e)
         {
             txtTerm.Clear();
+        }
+
+        private void workRead_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<object> Device = e.Argument as List<object>;
+            string COM = (string)Device.ElementAt(0);
+            string GAL = (string)Device.ElementAt(1);
+
+
+            string command = "/c afterburner_w64 r -t " + GAL + " -d " + COM + " -v";
+            txtTerm.Invoke(new Action(() =>
+            {
+                txtTerm.Text = txtTerm.Text = command;
+            }));
+
+            workRead.ReportProgress(50);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
+            procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.RedirectStandardInput = true;
+            procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            procStartInfo.CreateNoWindow = true;
+            procStartInfo.FileName = "cmd";
+            procStartInfo.Arguments = command;
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+
+            process.StartInfo = procStartInfo;
+            //progressBar1.Value = 30;
+            workRead.ReportProgress(60);
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+
+            string result2 = getBetween(result, "\r\nresult=", "\r\n");
+            if (result2 != "-1")
+            {
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******READ DEVICE: OK*******\r\n" + result + "****************************";
+                }));
+                btnRead.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                btnRead.BackColor = Color.Red;
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******READ DEVICE: FAIL*******\r\n" + result + "\r\n****************************";
+                }));
+
+            }
+
+            workRead.ReportProgress(100);
+        }
+
+        private void workRead_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void workWrite_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<object> Device = e.Argument as List<object>;
+            string COM = (string)Device.ElementAt(0);
+            string GAL = (string)Device.ElementAt(1);
+            string FILE = (string)Device.ElementAt(2);
+
+            string command = "/c afterburner_w64 w -t " + GAL + " -f " + FILE + " -d " + COM + " -v";
+            
+            txtTerm.Invoke(new Action(() =>
+            {
+                txtTerm.Text = txtTerm.Text = command;
+            }));
+
+            workWrite.ReportProgress(50);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
+            procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.RedirectStandardInput = true;
+            procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            procStartInfo.CreateNoWindow = true;
+            procStartInfo.FileName = "cmd";
+            procStartInfo.Arguments = command;
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+
+            process.StartInfo = procStartInfo;
+            //progressBar1.Value = 30;
+            workWrite.ReportProgress(60);
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+
+            string result2 = getBetween(result, "\r\nresult=", "\r\n");
+            if (result2 != "-1")
+            {
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******WRITE DEVICE: OK*******\r\n" + result + "****************************";
+                }));
+                btnWrite.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                btnWrite.BackColor = Color.Red;
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******WRITE DEVICE: FAIL*******\r\n" + result + "\r\n****************************";
+                }));
+
+            }
+
+            workWrite.ReportProgress(100);
+
+        }
+
+        private void workWrite_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void workVerify_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<object> Device = e.Argument as List<object>;
+            string COM = (string)Device.ElementAt(0);
+            string GAL = (string)Device.ElementAt(1);
+            string FILE = (string)Device.ElementAt(2);
+
+            string command = "/c afterburner_w64 v -t " + GAL + " -f " + FILE + " -d " + COM + " -v";
+
+            txtTerm.Invoke(new Action(() =>
+            {
+                txtTerm.Text = txtTerm.Text = command;
+            }));
+
+            workVerify.ReportProgress(50);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
+            procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.RedirectStandardInput = true;
+            procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            procStartInfo.CreateNoWindow = true;
+            procStartInfo.FileName = "cmd";
+            procStartInfo.Arguments = command;
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+
+            process.StartInfo = procStartInfo;
+            //progressBar1.Value = 30;
+            workVerify.ReportProgress(60);
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+
+            string result2 = getBetween(result, "\r\nresult=", "\r\n");
+            if (result2 != "-1")
+            {
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******VERIFY DEVICE: OK*******\r\n" + result + "****************************";
+                }));
+                btnVerify.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                btnVerify.BackColor = Color.Red;
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******VERIFY DEVICE: FAIL*******\r\n" + result + "\r\n****************************";
+                }));
+
+            }
+
+            workVerify.ReportProgress(100);
+
+
+        }
+
+        private void workVerify_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void workErase_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<object> Device = e.Argument as List<object>;
+            string COM = (string)Device.ElementAt(0);
+            string GAL = (string)Device.ElementAt(1);
+
+            string command = "/c afterburner_w64 e -t " + GAL + " -d " + COM + " -v";
+
+            txtTerm.Invoke(new Action(() =>
+            {
+                txtTerm.Text = txtTerm.Text = command;
+            }));
+
+            workErase.ReportProgress(50);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo();
+            procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.RedirectStandardInput = true;
+            procStartInfo.UseShellExecute = false;
+            // Do not create the black window.
+            procStartInfo.CreateNoWindow = true;
+            procStartInfo.FileName = "cmd";
+            procStartInfo.Arguments = command;
+            // This means that it will be redirected to the Process.StandardOutput StreamReader.
+
+            process.StartInfo = procStartInfo;
+            //progressBar1.Value = 30;
+            workErase.ReportProgress(60);
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+
+            string result2 = getBetween(result, "\r\nresult=", "\r\n");
+            if (result2 != "-1")
+            {
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******ERASE DEVICE: OK*******\r\n" + result + "****************************";
+                }));
+                btnErase.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                btnErase.BackColor = Color.Red;
+                txtTerm.Invoke(new Action(() =>
+                {
+                    txtTerm.Text = "*******ERASE DEVICE: FAIL*******\r\n" + result + "\r\n****************************";
+                }));
+
+            }
+
+            workErase.ReportProgress(100);
+
+        }
+
+        private void workErase_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
         }
     }
 }

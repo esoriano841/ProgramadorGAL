@@ -1,0 +1,9 @@
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\bin\Release\Programador GAL.exe.config
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\bin\Release\Programador GAL.exe
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\bin\Release\Programador GAL.pdb
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\obj\Release\ProgramadorGALv2.Form1.resources
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\obj\Release\ProgramadorGAL.Properties.Resources.resources
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\obj\Release\ProgramadorGALv2.csproj.GenerateResource.cache
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\obj\Release\ProgramadorGALv2.csproj.CoreCompileInputs.cache
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\obj\Release\Programador GAL.exe
+D:\dxloz\Documentos\GITLAB\ProgramadorGAL\ProgramadorGALv2\obj\Release\Programador GAL.pdb

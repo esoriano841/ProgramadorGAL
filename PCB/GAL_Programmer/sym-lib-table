@@ -1,4 +1,5 @@
 (sym_lib_table
   (lib (name Logic_Devices)(type Legacy)(uri ${KIPRJMOD}/Logic_Devices.lib)(options "")(descr ""))
   (lib (name DC_DC)(type Legacy)(uri ${KIPRJMOD}/DC_DC.lib)(options "")(descr ""))
+  (lib (name GAL_Programmer-rescue)(type Legacy)(uri ${KIPRJMOD}/GAL_Programmer-rescue.lib)(options "")(descr ""))
 )
