@@ -1,4 +1,4 @@
-19102155569398955
+19248722050222005
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -56209,6 +56209,13 @@ Yellow 5381 Series LED
 0
 2
 2
+LoraModules
+RAK3172
+
+
+0
+32
+32
 Module
 A20_OLINUXINO_LIME2
 A20 Olinuxino LIME2, 1.2GHz, 512-1024MB RAM, Micro-SD, NAND or eMMC, 1000Mbit Ethernet
@@ -76292,48 +76299,6 @@ rotary encoder
 0
 5
 4
-SamacSys_Parts
-NE555DR
-D (R-PDSO-G8)
-Integrated Circuit
-0
-8
-8
-SamacSys_Parts
-SOIC127P600X175-16N
-16 Narrow SO
-Integrated Circuit
-0
-16
-16
-SamacSys_Parts
-SOT95P275X110-6N
-TSOP-6 CASE318G-02
-Integrated Circuit
-0
-6
-6
-SamacSys_Parts2
-NE555DR
-D (R-PDSO-G8)
-Integrated Circuit
-0
-8
-8
-SamacSys_Parts2
-SOIC127P600X175-16N
-16 Narrow SO
-Integrated Circuit
-0
-16
-16
-SamacSys_Parts2
-SOT95P275X110-6N
-TSOP-6 CASE318G-02
-Integrated Circuit
-0
-6
-6
 Sensor
 Aosong_DHT11_5.5x12.0_P2.54mm
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/DHT11.pdf
@@ -83117,3 +83082,101 @@ varistor SIOV
 0
 2
 2
+logos
+1
+
+
+0
+0
+0
+logos
+2
+
+
+0
+0
+0
+logos
+3
+
+
+0
+0
+0
+logos
+4
+
+
+0
+0
+0
+logos
+5
+
+
+0
+0
+0
+logos
+6
+
+
+0
+0
+0
+logos
+FIME
+
+
+0
+0
+0
+logos
+FIME1
+
+
+0
+0
+0
+logos
+FIME2
+
+
+0
+0
+0
+logos
+FIME3
+
+
+0
+0
+0
+logos
+FIME4
+
+
+0
+0
+0
+logos
+FIME5
+
+
+0
+0
+0
+logos
+FIME6
+
+
+0
+0
+0
+logos
+FIME7
+
+
+0
+0
+0

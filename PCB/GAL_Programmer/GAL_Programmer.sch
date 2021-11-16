@@ -875,8 +875,6 @@ F 3 "~" H 10350 5850 50  0001 C CNN
 	1    10350 5850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	10100 5700 10350 5700
 $Comp
 L power:+5V #PWR011
 U 1 1 6197354D
@@ -1305,4 +1303,6 @@ Text Label 5000 2150 2    50   ~ 0
 R3
 Text Label 5000 2050 2    50   ~ 0
 R4
+Wire Wire Line
+	10100 5700 10350 5700
 $EndSCHEMATC
